@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GPS Tracker Visualization</title>
+
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/4.12.1/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/4.12.1/firebase-auth.js"></script>
+    <script defer src="/__/firebase/4.12.1/firebase-database.js"></script>
+    <!-- initialize the SDK after all desired features are loaded -->
+    <script defer src="/__/firebase/init.js"></script>
+
+    <script defer src="js/main.js"></script>
+
+    <!-- Styling -->
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <!-- Map Div -->
+    <div id="map"></div>
+    <!-- Map API call to Google Maps -->
+    <script async defer 
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxHb3swgrFfk3b4QyOYXAj7xpT9-PWjgg&callback=initMap">
+    </script>
+  </body>
+</html>
