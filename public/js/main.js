@@ -1,3 +1,27 @@
+/*------------------------------------------------------------------------------------------------------------------
+-- SOURCE FILE:         main.js - A website that visualizes gps tracking data
+--
+-- PROGRAM:             gps-tracker
+--
+-- FUNCTIONS:
+--                      void initMap()
+--                      void formSubmitHandler()
+--                      void loginSuccessCallback()
+--                      void createCard(deviceHash, line)
+--
+--
+-- DATE:                April 1, 2018
+--
+-- REVISIONS:           N/A
+--
+-- DESIGNER:            Benny Wang
+--
+-- PROGRAMMER:          Benny Wang
+--
+-- NOTES:
+-- This website allows for anyone with the correct login to view the logged gps data that is stored on firebase.
+----------------------------------------------------------------------------------------------------------------------*/
+
 // Default location for the map
 const VANCOUVER = { lat: 49.2827, lng: -123.1207 };
 
@@ -14,7 +38,27 @@ firebase.auth().onAuthStateChanged(function(user) {
   }
 });
 
-
+/*------------------------------------------------------------------------------------------------------------------
+-- FUNCTION:            initMap
+--
+-- DATE:                April 1, 2018
+--
+-- REVISIONS:           N/A
+--
+-- DESIGNER:            Benny Wang
+--
+-- PROGRAMMER:          Benny Wang
+--
+-- INTERFACE:           void initMap ()
+--
+-- RETURNS:             void
+--
+-- NOTES:
+-- This is a callback function used by the Google Maps API for javascript. This function creates a map and places it
+-- in the div tag with id 'map'.
+--
+-- The default zoom level of the map is 13 and is centered on Vancouver.
+----------------------------------------------------------------------------------------------------------------------*/
 function initMap() {
   // Make a new map
   map = new google.maps.Map(document.getElementById('map'), {
@@ -23,6 +67,30 @@ function initMap() {
   });
 }
 
+/*------------------------------------------------------------------------------------------------------------------
+-- FUNCTION:            formSubmitHandler
+--
+-- DATE:                April 1, 2018
+--
+-- REVISIONS:           N/A
+--
+-- DESIGNER:            Benny Wang
+--
+-- PROGRAMMER:          Benny Wang
+--
+-- INTERFACE:           void formSubmitHandler ()
+--
+-- RETURNS:             void
+--
+-- NOTES:
+-- This is a callback for when the user submit's the login form.
+--
+-- This function will grab the email and password that has been entered into the form and make an authentication
+-- request to firebase.
+--
+-- On success the authentication state of the website will change and the appropriate listener will display the gps
+-- data. If the authetication fails an error message is shown. 
+----------------------------------------------------------------------------------------------------------------------*/
 function formSubmitHandler()
 {
   let email = $('#emailForm').val();
@@ -33,6 +101,27 @@ function formSubmitHandler()
   });
 }
 
+/*------------------------------------------------------------------------------------------------------------------
+-- FUNCTION:            loginSuccessCallback
+--
+-- DATE:                April 1, 2018
+--
+-- REVISIONS:           N/A
+--
+-- DESIGNER:            Benny Wang
+--
+-- PROGRAMMER:          Benny Wang
+--
+-- INTERFACE:           void loginSuccessCallback ()
+--
+-- RETURNS:             void
+--
+-- NOTES:
+-- This function is run when a user successfully authenticates with firebase.
+--
+-- This function will query firebase for all the gps data and parse it. This is where the lines on the map are drawn
+-- and where the data cards are made.
+----------------------------------------------------------------------------------------------------------------------*/
 function loginSuccessCallback() {
   $('#accordian').empty();
 
@@ -82,6 +171,28 @@ function loginSuccessCallback() {
   });
 }
 
+/*------------------------------------------------------------------------------------------------------------------
+-- FUNCTION:            createCard
+--
+-- DATE:                April 1, 2018
+--
+-- REVISIONS:           N/A
+--
+-- DESIGNER:            Benny Wang
+--
+-- PROGRAMMER:          Benny Wang
+--
+-- INTERFACE:           void createCard (deviceHash, line)
+--                        string deviceHash: The unique id of the device.
+--                        JSON[] line: The array of json objects representing coordinates.
+--
+-- RETURNS:             void
+--
+-- NOTES:
+-- A expandable card is created with the deviceHash as the title. The card will contain a table with all the latitude
+-- and longitude of every coordinate transmitted by that device. The expandable card is then appended to the bottom
+-- of the div with an id of 'accordian' which is on the right side of the screen.
+----------------------------------------------------------------------------------------------------------------------*/
 function createCard(deviceHash, line) {
   // Create the contents of the card
   let points = "";
