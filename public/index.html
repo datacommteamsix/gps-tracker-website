@@ -1,51 +1,59 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
     <title>GPS Tracker Visualization</title>
 
     <!-- update the version number as needed -->
-    <script defer src="/__/firebase/4.12.1/firebase-app.js"></script>
+    <script defer src='/__/firebase/4.12.1/firebase-app.js'></script>
     <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/4.12.1/firebase-auth.js"></script>
-    <script defer src="/__/firebase/4.12.1/firebase-database.js"></script>
+    <script defer src='/__/firebase/4.12.1/firebase-auth.js'></script>
+    <script defer src='/__/firebase/4.12.1/firebase-database.js'></script>
     <!-- initialize the SDK after all desired features are loaded -->
-    <script defer src="/__/firebase/init.js"></script>
+    <script defer src='/__/firebase/init.js'></script>
 
 
     <!-- Styling -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel='stylesheet' href='css/style.css'>
 
     <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src='https://code.jquery.com/jquery-3.2.1.slim.min.js' integrity='sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN' crossorigin='anonymous'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js' integrity='sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q' crossorigin='anonymous'></script>
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm' crossorigin='anonymous'>
+    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js' integrity='sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl' crossorigin='anonymous'></script>
   </head>
   <body>
-    <div class='row no-gutters' style='height: 100%;'>
-      <!-- Map column -->
-      <div class='col-8'>
-        <!-- Map Div -->
-        <div id='map'></div>
-      </div>
-
-      <!-- Data column -->
-      <div class='col-4'>
-        <div id='accordian'>
-          <!-- Cards go here -->
-        </div>
-      </div>
-
+    <!-- Map Div -->
+    <div class='left'>    
+      <div id='map'></div>
     </div>
 
-        <!-- Map API call to Google Maps -->
+    <div class='right' id='accordian'>
+      <!-- Login Form -->
+      <div id='login'>
+        <form>
+          <div class='form-group'>
+            <label for='emailForm'>Email address</label>
+            <input type='email' class='form-control' id='emailForm' placeholder='email@example.com' autocomplete='on'>
+          </div>
+          <div class='form-group'>
+            <label for='passwordForm'>Password</label>
+            <input type='password' class='form-control' id='passwordForm' placeholder='Password' autocomplete='off'>
+          </div>
+        </form>
+        <button class='btn btn-primary' onclick='formSubmitHandler()'>Sign in</button>
+        <div id='errorDisplay'></div>
+      </div>
+      <!-- Cards go here if user is logged in-->
+    </div>
+
+    <!-- Map API call to Google Maps -->
     <script async defer 
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxHb3swgrFfk3b4QyOYXAj7xpT9-PWjgg&callback=initMap">
+      src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAxHb3swgrFfk3b4QyOYXAj7xpT9-PWjgg&callback=initMap'>
     </script>
-    <script defer src="js/main.js"></script>
+    <script defer src='js/main.js'></script>
   </body>
 </html>
