@@ -38,6 +38,15 @@ firebase.auth().onAuthStateChanged(function(user) {
   }
 });
 
+// Clean up when the user leaves
+window.onbeforeunload = function() {
+  // Turn of database listener
+  app.database.ref().off();
+
+  // Sign out the user
+  firebase.auth().signOut();
+}
+
 /*------------------------------------------------------------------------------------------------------------------
 -- FUNCTION:            initMap
 --
@@ -119,24 +128,25 @@ function formSubmitHandler()
 -- NOTES:
 -- This function is run when a user successfully authenticates with firebase.
 --
--- This function will query firebase for all the gps data and parse it. This is where the lines on the map are drawn
--- and where the data cards are made.
+-- This function will listen to the firebase database for all the gps data and parse it. This is where the lines on 
+-- the map are drawn and where the data cards are made. The line and cards get redrawn whenever the database recieves
+-- new data.
 ----------------------------------------------------------------------------------------------------------------------*/
 function loginSuccessCallback() {
-  $('#accordian').empty();
 
-  let lines = [];
-  let devices = [];
+  // Listen to the database for all the points
+  let root = app.database().ref().on('value', function(snapshot) {
+    $('#accordian').empty();
 
-  // Query the database for all the points
-  let root = app.database().ref().once('value').then(function(snapshot) {
+    let lines = [];
+    let devices = [];
     let data = snapshot.val();
     devices = Object.keys(data);
     
     // Loop through all the devices
     for (let i = 0; i < devices.length; i++) {
       let device = data[devices[i]];
-      let timestamps = Object.keys(device);
+      let timestamps = Object.keys(device).sort();
 
       // Loop though all the entries
       let line = [];
@@ -150,7 +160,7 @@ function loginSuccessCallback() {
 
       lines.push(line);
     }
-    
+
     // For each line
     lines.forEach(function(line, i) {
       // Create path
